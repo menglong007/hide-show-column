@@ -1,0 +1,36 @@
+<div class="flex flex-col " (click)="$event.stopPropagation()">
+  <header class="example-list-section  ">
+    <div class="flex justify-between items-center">
+      <mat-checkbox (change)="onChange($event.checked)"
+                    [checked]="allChecked"
+                    [indeterminate]="isIndeterminate()">Select All
+      </mat-checkbox>
+      <div class="pr-10 text-sm">Width</div>
+    </div>
+  </header>
+
+  <form [formGroup]="formGroup" class="flex flex-col h-80 overflow-y-scroll">
+    <ng-container *ngFor="let col of columns">
+      <div class="flex justify-between items-center">
+        <div>
+          <mat-checkbox [formControlName]="col.value + '-show'" (change)="updateAllCheck()">
+            {{col.name}}
+          </mat-checkbox>
+        </div>
+        <div>
+          <input type="number" [formControlName]="col.value + '-width'" class="w-24 border-2">
+        </div>
+      </div>
+    </ng-container>
+  </form>
+
+  <footer class="flex justify-between gap-3 m-2  ">
+    <div>
+      <button mat-button color="warn" (click)="onReset()">Reset</button>
+    </div>
+    <div>
+      <button mat-button color="accent" (click)="onCancelled()">Cancel</button>
+      <button mat-raised-button color="primary" (click)="onSubmit()">Ok</button>
+    </div>
+  </footer>
+</div>
